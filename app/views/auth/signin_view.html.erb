@@ -1,0 +1,12 @@
+<% if flash[:error] %>
+	<%= "#{flash[:error]}"%>
+<% end %>
+
+<%= form_tag do %>
+	<p> email </p>
+	<input name="email" type="text" value="" />
+	<br/>
+	<p> password </p>
+	<input name="password" type="password" value="password" />
+	<input type="submit" value="signin" />
+<% end %>
