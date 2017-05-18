@@ -29,13 +29,16 @@ class AuthController < ApplicationController
 	#post /signup
 	def signup
 		@user = User.new user_params
-
-		if @user.save
-			session[:current_user_id] = @user.id
-			redirect_to profile_url
-		else
-			redirect_to signup_url
-		end
+		respond_to do |format|
+	      if @user.save
+	      	session[:current_user_id] = @user.id
+	        format.html { redirect_to profile_url, notice: 'Article was successfully created.' }
+	        format.json { render :show, status: :created, location: @user }
+	      else
+	        format.html { render :signup_view }
+	        format.json { render json: @user.errors, status: :unprocessable_entity }
+	      end
+	    end
 	end
 
 	def profile
